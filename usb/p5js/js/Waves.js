@@ -1,33 +1,54 @@
 class Waves {
   constructor(particleCount = 50, shape = "circle") {
     this.PARTICLE_COUNT = particleCount;
-    // this sketch has the shape option of circle or square 
+    // this sketch has the shape option of circle or square
     this.shape = shape;
     this.particles = [];
     this.amplitude = 50;
     this.frequency = 0.04;
     this.speed = 2;
+    this.amplitudeGrowing = false;
+    this.frequencyGrowing = false;
   }
   setup() {
     for (let i = 0; i < this.PARTICLE_COUNT; i++) {
       this.particles[i] = new Particle(this);
     }
   }
-  draw(input) {
+
+  input1On() {
+    this.amplitudeGrowing = true;
+  }
+  input2On() {
+    this.frequencyGrowing = true;
+  }
+  input3On() {
+    this.speed = -2;
+  }
+  input1Off() {
+    this.amplitudeGrowing = false;
+  }
+  input2Off() {
+    this.frequencyGrowing = false;
+  }
+  input3Off() {
+    this.speed = 2;
+  }
+
+  draw() {
+    if (this.amplitudeGrowing) {
+      this.amplitude += 1;
+    } else {
+      this.resetAmplitude()
+    }
+    if(this.frequencyGrowing){
+      this.frequency += 0.00005
+    }else{
+      this.resetFrequency()
+    }
     for (let i = 0; i < this.PARTICLE_COUNT; i++) {
       this.particles[i].move();
       this.particles[i].draw();
-    }
-    if (input.has(1) && this.amplitude < 150) {
-      this.amplitude += 1;
-    } else if (input.has(2) && this.frequency < 5) {
-      this.frequency += 0.0001;
-    } else if (input.has(3)) {
-      this.speed = -2;
-    } else if (input.size === 0) {
-      this.resetSpeed();
-      this.resetAmplitude();
-      this.resetFrequency();
     }
   }
   resetAmplitude() {
@@ -55,10 +76,10 @@ class Particle {
     this.scaleFactor = random(30);
 
     this.scale = 3;
-    this.r = random(255); 
-    this.g = random(100, 255); 
-    this.b = random(100, 255); 
-    this.a = random(200, 255); 
+    this.r = random(255);
+    this.g = random(100, 255);
+    this.b = random(100, 255);
+    this.a = random(200, 255);
     this.parent = parent;
   }
   move() {

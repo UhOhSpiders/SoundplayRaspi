@@ -1,7 +1,8 @@
 class MIDI {
-  constructor() {
+  constructor(notes=[1,2,3,4]) {
+    this.activeSketch = new BaseSketch()
     this.keyHeld = false;
-    this.notes = new Map();
+    this.notes = notes
     this.setup();
   }
 
@@ -24,12 +25,28 @@ class MIDI {
     const [status, note, velocity] = event.data;
     const command = status & 0xf0; // Mask channel info
     if (command === 0x90 && velocity > 0) {
-      this.notes.set(note, true);
-      if (note === 5) {
+      if (note === this.notes[0]) {
+        this.activeSketch.input1On()
+      }
+      if (note === this.notes[1]) {
+        this.activeSketch.input2On()
+      }
+      if (note === this.notes[2]) {
+        this.activeSketch.input3On()
+      }
+      if (note === this.notes[3]) {
         cycleSketch();
       }
     } else if (command === 0x80 || (command === 0x90 && velocity === 0)) {
-      this.notes.delete(note);
+      if(note === this.notes[0]){
+        this.activeSketch.input1Off()
+      }
+      if(note === this.notes[1]){
+        this.activeSketch.input2Off()
+      }
+      if (note === this.notes[2]) {
+        this.activeSketch.input3Off()
+      }
     }
   }
 }

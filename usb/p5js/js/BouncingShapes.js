@@ -1,5 +1,6 @@
-class BouncingShapes {
+class BouncingShapes extends BaseSketch {
   constructor(numShapes = 5, shapeType = "circle") {
+    super();
     this.backgroundR = 0;
     this.backgroundG = 0;
     this.backgroundB = 0;
@@ -34,21 +35,8 @@ class BouncingShapes {
   }
 
   draw(input) {
+    this.changeBackgroundColor();
     fill(this.backgroundR, this.backgroundG, this.backgroundB);
-
-    if (input.has(1)) {
-      this.changeBackgroundColor();
-      this.gravity = createVector(0, -3); // Reverse gravity
-    } else if (input.has(2)) {
-      this.changeBackgroundColor();
-      this.gravity = createVector(-3, 0);
-    } else if (input.has(3)) {
-      this.changeBackgroundColor();
-      this.gravity = createVector(3, 0);
-    } else {
-      this.gravity = createVector(0, 0.3); // Normal gravity
-    }
-
     for (let shape of this.shapes) {
       shape.collide();
       shape.move();
@@ -58,6 +46,31 @@ class BouncingShapes {
       let mirrorX = width - shape.pos.x * 2;
       shape.display(mirrorX);
     }
+  }
+
+  // input logic
+  input1On() {
+    this.gravity = createVector(0, -3); // Reverse gravity
+  }
+
+  input1Off() {
+    this.gravity = createVector(0, 0.03); // Reverse gravity
+  }
+
+  input2On() {
+    this.gravity = createVector(-3, 0);
+  }
+
+  input2Off() {
+    this.gravity = createVector(0, 0.03);
+  }
+
+  input3On() {
+    this.gravity = createVector(3, 0);
+  }
+
+  input3Off() {
+    this.gravity = createVector(0, 0.03);
   }
 
   changeBackgroundColor() {
