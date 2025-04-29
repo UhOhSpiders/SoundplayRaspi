@@ -57,5 +57,5 @@ Exec=/home/<YOUR_USERNAME>/auto_launch.sh
 
 - Press `Alt` + `F4` to exit the fullscreen visuals.
 - `auto_launch.sh` waits 10 seconds before it does anything. This lets everything load properly. If it looks like nothing is happening just wait a bit.
-- This script can of course be modified to run whatever you need! Notes on the p5js structure found here.
+- This script can of course be modified to run whatever you need! Notes on the p5js structure found in the p5js folder.
 
