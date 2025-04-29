@@ -1,5 +1,5 @@
 class MIDI {
-  constructor(notes=[1,2,3,4]) {
+  constructor(notes) {
     this.activeSketch = new BaseSketch()
     this.keyHeld = false;
     this.notes = notes
@@ -37,7 +37,7 @@ class MIDI {
       if (note === this.notes[3]) {
         cycleSketch();
       }
-    } else if (command === 0x80 || (command === 0x90 && velocity === 0)) {
+    } else if (command === 0x80) {
       if(note === this.notes[0]){
         this.activeSketch.input1Off()
       }

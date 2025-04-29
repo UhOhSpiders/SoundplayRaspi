@@ -9,17 +9,18 @@ let input
 
 function setup() {
   // instantiate sketches
+  // they must extend BaseSketch
   bouncingShapes = new BouncingShapes(5, "square");
   bouncingShapes2 = new BouncingShapes(10, "circle");
   bouncingShapes3 = new BouncingShapes(4, "triangle");
   waves = new Waves();
   waves2 = new Waves(10, "square");
   
-  
   sketches = [bouncingShapes, waves2, bouncingShapes2, bouncingShapes3, waves];
   
   //instantiate midi input
-  input = new MIDI()
+  // you can set the input note codes here
+  input = new MIDI([1,2,3,4])
   input.activeSketch = bouncingShapes
   createCanvas(windowWidth, windowHeight);
 

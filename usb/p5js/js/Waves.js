@@ -1,5 +1,6 @@
-class Waves {
+class Waves extends BaseSketch {
   constructor(particleCount = 50, shape = "circle") {
+    super();
     this.PARTICLE_COUNT = particleCount;
     // this sketch has the shape option of circle or square
     this.shape = shape;
@@ -42,7 +43,7 @@ class Waves {
       this.resetAmplitude()
     }
     if(this.frequencyGrowing){
-      this.frequency += 0.00005
+      this.frequency -= 0.00005
     }else{
       this.resetFrequency()
     }
@@ -58,8 +59,8 @@ class Waves {
   }
 
   resetFrequency() {
-    if (this.frequency > 0.04) {
-      this.frequency -= 0.001;
+    if (this.frequency < 0.04) {
+      this.frequency += 0.001;
     }
   }
 

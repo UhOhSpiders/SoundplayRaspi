@@ -10,8 +10,6 @@ class BouncingShapes extends BaseSketch {
     this.spring = 0.05;
     this.gravity = createVector(0, 0.03); // Gravity as a p5.Vector now
     this.friction = -0.9;
-    this.shapeIndex = 0;
-    this.shapeDisplays = ["circle", "square", "triangle"];
   }
 
   setup() {
@@ -81,11 +79,6 @@ class BouncingShapes extends BaseSketch {
     if (this.backgroundR > 255) this.backgroundR -= 255;
     if (this.backgroundG > 255) this.backgroundG -= 255;
     if (this.backgroundB > 255) this.backgroundB -= 255;
-  }
-
-  cycleShape() {
-    this.shapeIndex = (this.shapeIndex + 1) % this.shapeDisplays.length;
-    this.shapeType = this.shapeDisplays[this.shapeIndex];
   }
 }
 
