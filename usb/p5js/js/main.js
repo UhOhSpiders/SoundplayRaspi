@@ -2,6 +2,8 @@ let sketchIndex = 0;
 let bouncingShapes;
 let bouncingShapes2;
 let bouncingShapes3;
+let waves;
+let wave2
 let sketches;
 const input = new MIDI();
 
@@ -9,7 +11,9 @@ function setup() {
   bouncingShapes = new BouncingShapes(5, "square");
   bouncingShapes2 = new BouncingShapes(10, "circle");
   bouncingShapes3 = new BouncingShapes(4, "triangle");
-  sketches = [bouncingShapes, bouncingShapes2, bouncingShapes3];
+  waves = new Waves();
+  waves2 = new Waves(10, "square");
+  sketches = [bouncingShapes, waves2, bouncingShapes2, bouncingShapes3, waves];
   createCanvas(windowWidth, windowHeight);
   for (const sketch of sketches) {
     sketch.setup();
