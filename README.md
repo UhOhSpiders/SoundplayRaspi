@@ -51,7 +51,11 @@ Name=auto_launch
 Exec=/home/<YOUR_USERNAME>/auto_launch.sh
 ```
 
-6. Save this and reboot the Pi to try it out. 
+6. Save this.
+7. To hide the cursor, run `sudo nano /etc/lightdm/lightdm.conf`
+8. Add `xserver-command=X -nocursor` beneath the `[Seat*]`section.
+9. Note: this permanently hides your cursor and you'll have to use the terminal to disable this if you need it back.
+10. Save this and reboot the Pi to try it out. 
 
 ## Notes:
 

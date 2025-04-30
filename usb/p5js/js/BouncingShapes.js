@@ -8,7 +8,8 @@ class BouncingShapes extends BaseSketch {
     this.numShapes = numShapes;
     this.shapeType = shapeType;
     this.spring = 0.05;
-    this.gravity = createVector(0, 0.03); // Gravity as a p5.Vector now
+    this.gravity = createVector(0, 0.03);
+    this.colorChanging = false;
     this.friction = -0.9;
   }
 
@@ -33,7 +34,9 @@ class BouncingShapes extends BaseSketch {
   }
 
   draw(input) {
-    this.changeBackgroundColor();
+    if (this.colorChanging) {
+      this.changeBackgroundColor();
+    }
     fill(this.backgroundR, this.backgroundG, this.backgroundB);
     for (let shape of this.shapes) {
       shape.collide();
@@ -47,27 +50,34 @@ class BouncingShapes extends BaseSketch {
   }
 
   // input logic
+  // -------- input 1 ----------
   input1On() {
+    this.colorChanging = true;
     this.gravity = createVector(0, -3); // Reverse gravity
   }
 
   input1Off() {
+    this.colorChanging = false;
     this.gravity = createVector(0, 0.03); // Reverse gravity
   }
-
+  // -------- input 2 ----------
   input2On() {
+    this.colorChanging = true;
     this.gravity = createVector(-3, 0);
   }
 
   input2Off() {
+    this.colorChanging = false;
     this.gravity = createVector(0, 0.03);
   }
-
+  // -------- input 3 ----------
   input3On() {
+    this.colorChanging = true;
     this.gravity = createVector(3, 0);
   }
 
   input3Off() {
+    this.colorChanging = false;
     this.gravity = createVector(0, 0.03);
   }
 

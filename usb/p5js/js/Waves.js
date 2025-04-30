@@ -10,6 +10,7 @@ class Waves extends BaseSketch {
     this.speed = 2;
     this.amplitudeGrowing = false;
     this.frequencyGrowing = false;
+    this.colorChanging = false;
   }
   setup() {
     for (let i = 0; i < this.PARTICLE_COUNT; i++) {
@@ -22,6 +23,7 @@ class Waves extends BaseSketch {
   }
   input2On() {
     this.frequencyGrowing = true;
+    this.colorChanging = true;
   }
   input3On() {
     this.speed = -2;
@@ -31,6 +33,7 @@ class Waves extends BaseSketch {
   }
   input2Off() {
     this.frequencyGrowing = false;
+    this.colorChanging = false;
   }
   input3Off() {
     this.speed = 2;
@@ -40,16 +43,19 @@ class Waves extends BaseSketch {
     if (this.amplitudeGrowing) {
       this.amplitude += 1;
     } else {
-      this.resetAmplitude()
+      this.resetAmplitude();
     }
-    if(this.frequencyGrowing){
-      this.frequency -= 0.00005
-    }else{
-      this.resetFrequency()
+    if (this.frequencyGrowing) {
+      this.frequency -= 0.00005;
+    } else {
+      this.resetFrequency();
     }
     for (let i = 0; i < this.PARTICLE_COUNT; i++) {
       this.particles[i].move();
       this.particles[i].draw();
+      if(this.colorChanging){
+        this.particles[i].changeColor()
+      }
     }
   }
   resetAmplitude() {
@@ -100,6 +106,14 @@ class Particle {
     } else if (this.parent.shape === "square") {
       square(this.position.x, this.position.y, random(30, 40));
     }
+  }
+  changeColor() {
+    this.r += 1;
+    this.g += 1;
+    this.b += 1;
+    if (this.r > 255) this.r -= 255;
+    if (this.g > 255) this.g -= 255;
+    if (this.b > 255) this.b -= 255;
   }
   changeScale() {
     this.scale = Math.sin(this.position.x * (this.parent.amplitude / 100));
