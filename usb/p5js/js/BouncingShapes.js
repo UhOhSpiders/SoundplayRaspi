@@ -15,6 +15,7 @@ class BouncingShapes extends BaseSketch {
 
   setup() {
     stroke(255);
+    strokeWeight(5)
     fill(255, 204);
 
     this.backgroundR = 0;

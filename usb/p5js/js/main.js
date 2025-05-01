@@ -3,9 +3,9 @@ let bouncingShapes;
 let bouncingShapes2;
 let bouncingShapes3;
 let waves;
-let wave2
+let wave2;
 let sketches;
-let input
+let input;
 
 function setup() {
   // instantiate sketches
@@ -20,9 +20,13 @@ function setup() {
   
   //instantiate midi input
   // you can set the input note codes here
-  input = new MIDI([1,2,3,4])
-  input.activeSketch = bouncingShapes
-  createCanvas(windowWidth, windowHeight);
+  // back2back midi notes right (id:"-1588111152"): 36,37,38,39,40 left(id:"-743692278"): 36,37,38,39,40
+  
+  input = new MIDI([36, 37, 38, 39, 40]);
+  input.activeSketch = bouncingShapes;
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  pixelDensity(0.5);
+  noSmooth();
 
   for (const sketch of sketches) {
     sketch.setup();
@@ -30,6 +34,7 @@ function setup() {
 }
 
 function draw() {
+  translate(-windowWidth/2, -windowHeight/2)
   sketches[sketchIndex].draw();
 }
 
@@ -42,6 +47,6 @@ function cycleSketch() {
   if (sketchIndex + 1 > sketches.length) {
     sketchIndex = 0;
   }
-  input.activeSketch = sketches[sketchIndex]
-  background(0,0,0)
+  input.activeSketch = sketches[sketchIndex];
+  background(0, 0, 0);
 }

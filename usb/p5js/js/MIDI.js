@@ -10,6 +10,7 @@ class MIDI {
     navigator.requestMIDIAccess().then(
       (midiAccess) => {
         midiAccess.inputs.forEach((input) => {
+          console.log(input)
           input.onmidimessage = (event) => {
             this.handleMidiMessage(event);
           };
@@ -24,6 +25,7 @@ class MIDI {
   handleMidiMessage(event) {
     const [status, note, velocity] = event.data;
     const command = status & 0xf0; // Mask channel info
+    console.log(note)
     if (command === 0x90 && velocity > 0) {
       if (note === this.notes[0]) {
         this.activeSketch.input1On()

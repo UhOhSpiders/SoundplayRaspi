@@ -19,7 +19,9 @@ AUTOLAUNCH/
     │   ├── css/
     │   ├── js/
     │   └── index.html
-    └── pure_data_patch.pd
+    └── pure-data/
+    	├── samples/
+		└── YOUR_PATCH.html
 ```
 
 ## Raspberry Pi setup:
@@ -31,9 +33,11 @@ AUTOLAUNCH/
 
 sleep 10
 
-chromium-browser --kiosk --ozone-platform=wayland /media/$USER/AUTOLAUNCH/p5js/index.html &
+xrandr --setmonitor virt auto HDMI-1,HDMI-2
 
-pd /media/$USER/AUTOLAUNCH/<YOUR_PATCH_NAME>.pd &
+chromium-browser --kiosk --ozone-platform=x11 --window-size=3840,1080 --window-position=0,0 /media/$USER/AUTOLAUNCH/p5js/index.html &
+
+pd -alsa -midiindev 1 -midioutdev 0 /media/$USER/AUTOLAUNCH/<YOUR_PATCH_NAME>.pd &
 ```
 
 2. Run the following in the terminal to make `auto_launch.sh` executable:
@@ -62,4 +66,20 @@ Exec=/home/<YOUR_USERNAME>/auto_launch.sh
 - Press `Alt` + `F4` to exit the fullscreen visuals.
 - `auto_launch.sh` waits 10 seconds before it does anything. This lets everything load properly. If it looks like nothing is happening just wait a bit.
 - This script can of course be modified to run whatever you need! Notes on the p5js structure found in the p5js folder.
+- The p5js sketch runs at a reduced resolution for a better framerate on the Pi's limited hardware:
+```
+function setup() {
+...
+createCanvas(windowWidth, windowHeight, WEBGL); // WEBGL canvas required
+pixelDensity(0.5); // reduces resolution by half
+noSmooth(); // reduces blur
+}
+
+function draw(){
+translate(-windowWidth/2, -windowHeight/2) // moves sketch to correct for WEBGL coordinates
+...
+}
+
+```
+
 
