@@ -21,7 +21,7 @@ AUTOLAUNCH/
     │   └── index.html
     └── pure-data/
     	├── samples/
-		└── YOUR_PATCH.html
+		└── YOUR_PATCH.pd
 ```
 
 ## Raspberry Pi setup:
