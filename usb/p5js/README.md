@@ -31,7 +31,7 @@ function setup() {
   }
 }
 ```
-4. Your sketches draw method will be called inside of the main draw loop when its index is set. 
+4. The draw method will be called inside of the main draw loop when its index is set. 
 ```
 function draw() {
   sketches[sketchIndex].draw();
