@@ -1,6 +1,6 @@
 # 🥧 Raspberry Pi/USB Autolaunch Setup
 
-On boot, this setup automatically launches a fullscreen p5js sketch, and a Pure Data patch for audio. 
+On boot, this setup automatically launches a fullscreen p5js sketch, and a Pure Data patch for audio.
 
 ## You will need:
 
@@ -11,7 +11,7 @@ On boot, this setup automatically launches a fullscreen p5js sketch, and a Pure 
 
 1. Name your USB drive `AUTOLAUNCH`.
 2. Copy the contents of the `usb` directory.
-3. The USB drive file structure should look like this: 
+3. The USB drive file structure should look like this:
 
 ```
 AUTOLAUNCH/
@@ -19,67 +19,29 @@ AUTOLAUNCH/
     │   ├── css/
     │   ├── js/
     │   └── index.html
-    └── pure-data/
+    └── pd/
     	├── samples/
 		└── YOUR_PATCH.pd
 ```
 
 ## Raspberry Pi setup:
 
-1. Add this `auto_launch.sh` script to `/home/<YOUR_USERNAME>/auto_launch.sh`:
+1. Add the `auto_launch.sh` script to `/home/<YOUR_USERNAME>/auto_launch.sh`:
 
-```bash
-#!/bin/bash
+2. Run the following in the terminal to make this executable:
 
-sleep 10
+`chmod +x /home/$USER/auto_launch.sh`
 
-xrandr --setmonitor virt auto HDMI-1,HDMI-2
+3. To execute on boot, run: `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` and add: `@bash /home/soundplay/auto_start.sh` to the bottom of this file.
 
-chromium-browser --kiosk --ozone-platform=x11 --window-size=3840,1080 --window-position=0,0 /media/$USER/AUTOLAUNCH/p5js/index.html &
+4. `Control` + `S` to save and `Control` + `X` to exit.
 
-pd -alsa -midiindev 1 -midioutdev 0 /media/$USER/AUTOLAUNCH/<YOUR_PATCH_NAME>.pd &
-```
+5. Turn down the resolution on both monitors to get a better framerate from the p5js sketch via: `Preferences > Screen Configuration > Screens > HDMI1 > Resolution`.
 
-2. Run the following in the terminal to make `auto_launch.sh` executable:
-
- `chmod +x /home/$USER/auto_launch.sh` 
-
-3. To execute on boot, run: `mkdir /home/pi/.config/autostart`
-4. Then: `nano /home/pi/.config/autostart/auto_launch.desktop`
-5. Copy and paste:
-
-```
-[Desktop Entry]
-Type=Application
-Name=auto_launch
-Exec=/home/<YOUR_USERNAME>/auto_launch.sh
-```
-
-6. Save this.
-7. To hide the cursor, run `sudo nano /etc/lightdm/lightdm.conf`
-8. Add `xserver-command=X -nocursor` beneath the `[Seat*]`section.
-9. Note: this permanently hides your cursor and you'll have to use the terminal to disable this if you need it back.
-10. Save this and reboot the Pi to try it out. 
+6. Save this and reboot the Pi to try it out.
 
 ## Notes:
 
 - Press `Alt` + `F4` to exit the fullscreen visuals.
 - `auto_launch.sh` waits 10 seconds before it does anything. This lets everything load properly. If it looks like nothing is happening just wait a bit.
 - This script can of course be modified to run whatever you need! Notes on the p5js structure found in the p5js folder.
-- The p5js sketch runs at a reduced resolution for a better framerate on the Pi's limited hardware:
-```
-function setup() {
-...
-createCanvas(windowWidth, windowHeight, WEBGL); // WEBGL canvas required
-pixelDensity(0.5); // reduces resolution by half
-noSmooth(); // reduces blur
-}
-
-function draw(){
-translate(-windowWidth/2, -windowHeight/2) // moves sketch to correct for WEBGL coordinates
-...
-}
-
-```
-
-

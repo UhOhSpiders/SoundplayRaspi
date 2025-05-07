@@ -15,7 +15,6 @@ class BouncingShapes extends BaseSketch {
 
   setup() {
     stroke(255);
-    strokeWeight(5)
     fill(255, 204);
 
     this.backgroundR = 0;
@@ -26,7 +25,7 @@ class BouncingShapes extends BaseSketch {
       this.shapes[i] = new BouncingShape(
         random(width),
         random(height),
-        random(10, 300),
+        random(10, 50),
         i,
         this.shapes,
         this
