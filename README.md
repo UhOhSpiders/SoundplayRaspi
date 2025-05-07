@@ -1,6 +1,6 @@
-# 🥧 Raspberry Pi/USB Autolaunch Setup
+# 🥧 Raspberry Pi/USB Drive Autolaunch Setup
 
-On boot, this setup automatically launches a fullscreen p5js sketch, and a Pure Data patch for audio.
+On boot, this Raspberry Pi / USB Drive setup automatically launches a fullscreen p5js sketch accross 1 or 2 monitors, and Pure Data patch (with no gui) for audio.
 
 ## You will need:
 
@@ -21,12 +21,12 @@ AUTOLAUNCH/
     │   └── index.html
     └── pd/
     	├── samples/
-		└── YOUR_PATCH.pd
+	└── YOUR_PATCH.pd
 ```
 
 ## Raspberry Pi setup:
 
-1. Add the `auto_launch.sh` script to `/home/<YOUR_USERNAME>/auto_launch.sh`:
+1. Add the `auto_launch.sh` script to `/home/<YOUR_USERNAME>/auto_launch.sh`.
 
 2. Run the following in the terminal to make this executable:
 
