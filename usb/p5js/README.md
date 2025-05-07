@@ -7,7 +7,7 @@ The sketches are defined as classes to avoid conflicting variable names.
 
 To add a sketch:
 1. Convert it to a [class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). 
-2. Extend BaseSketch.js and impliment its `setup`, `draw` and `input` methods in your class (the input methods mean your sketch can reliably interface with the MIDI logic without breaking any of the other sketches).
+2. Extend BaseSketch.js and impliment its `setup`, `draw` and `input` methods in your class (see `Waves.js` for an example of this).
 4. Instantiate it, and add it to the `sketches` array in `main.js`: 
 ```
 let sketchIndex = 0;
