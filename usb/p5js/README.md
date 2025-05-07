@@ -7,8 +7,8 @@ The sketches are defined as classes to avoid conflicting variable names.
 
 To add a sketch:
 1. Convert it to a [class](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). 
-2. Make sure this class has a `setup()` and `draw()` method.
-3. Instantiate it, and it to the `sketches` array in `main.js`: 
+2. Extend BaseSketch.js and impliment its `setup`, `draw` and `input` methods in your class (the input methods mean your sketch can reliably interface with the MIDI logic without breaking any of the other sketches).
+4. Instantiate it, and add it to the `sketches` array in `main.js`: 
 ```
 let sketchIndex = 0;
 let bouncingShapes;
@@ -34,11 +34,13 @@ function setup() {
 4. Your sketches draw method will be called inside of the main draw loop when its index is set. 
 ```
 function draw() {
-  sketches[sketchIndex].draw(input.notes);
+  sketches[sketchIndex].draw();
 }
 ```
-4. Add an `input` argument to your class's `draw()` method and use this to drive the interactivity of your sketch. 
 
 ## Input
 
-- The `MIDI.js` implements a class which handles input from a MIDI controller using [WEB MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
+- Specify the MIDI notes all of the sketches listen for in `main.js` by passing the MIDI class an array of numbers. Eg:
+  `input = new MIDI([36,37,38,39,40])`
+- This class handles input from a MIDI controller using [WEB MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
+- It calls the input methods listed in `BaseSketch.js` when a note is pressed or released. 
