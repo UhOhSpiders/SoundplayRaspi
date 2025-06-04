@@ -1,11 +1,22 @@
 # 🥧 Raspberry Pi/USB Drive Autolaunch Setup
 
-On boot, this Raspberry Pi / USB Drive setup automatically launches a fullscreen p5js sketch accross 1 or 2 monitors, and Pure Data patch (with no gui) for audio.
+On boot, this Raspberry Pi / USB Drive setup automatically launches a fullscreen p5js sketch across 1 or 2 monitors, and Pure Data patch (with no gui) for audio.
 
 ## You will need:
 
 - A USB drive
 - A Raspberry Pi with Pure Data and Chromium installed
+
+## Cloning this setup:
+
+Use the SD Card Copier utility on a pre-configured Raspberry Pi to clone its system settings. 
+
+1. Go to accessories
+2. Hit Copy SD
+3. Place a blank micro SD in a USB holder
+4. Place holder in open USB slot
+5. Choose the new SD
+6. Hit copy
 
 ## USB drive setup:
 
@@ -24,7 +35,7 @@ AUTOLAUNCH/
 	└── YOUR_PATCH.pd
 ```
 
-## Raspberry Pi setup:
+## Manual Raspberry Pi setup:
 
 1. Add the `auto_launch.sh` script to `/home/<YOUR_USERNAME>/auto_launch.sh`.
 
