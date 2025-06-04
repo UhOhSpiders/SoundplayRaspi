@@ -17,4 +17,7 @@ class BaseSketch {
   // -------- input 3 ----------
   input3On() {}
   input3Off() {}
+    // -------- input 4 ----------
+  input4On() {}
+  input4Off() {}
 }

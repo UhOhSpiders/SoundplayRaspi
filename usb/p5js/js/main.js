@@ -20,7 +20,6 @@ function setup() {
   
   //instantiate midi input
   // you can set the input note codes here
-  // back2back midi notes right (id:"-1588111152"): 36,37,38,39,40 left(id:"-743692278"): 36,37,38,39,40
 
   input = new MIDI([36,37,38,39,40])
   input.activeSketch = bouncingShapes
