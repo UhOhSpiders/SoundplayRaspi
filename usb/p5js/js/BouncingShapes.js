@@ -80,6 +80,16 @@ class BouncingShapes extends BaseSketch {
     this.colorChanging = false;
     this.gravity = createVector(0, 0.03);
   }
+  // -------- input 4 ----------
+  input4On() {
+    this.colorChanging = true;
+    this.gravity = createVector(0, 3);
+  }
+
+  input4Off() {
+    this.colorChanging = false;
+    this.gravity = createVector(0, 0.03);
+  }
 
   changeBackgroundColor() {
     this.backgroundR += 1;

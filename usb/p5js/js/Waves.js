@@ -8,6 +8,7 @@ class Waves extends BaseSketch {
     this.amplitude = 50;
     this.frequency = 0.04;
     this.speed = 2;
+    this.scale = 30;
     this.amplitudeGrowing = false;
     this.frequencyGrowing = false;
     this.colorChanging = false;
@@ -17,31 +18,40 @@ class Waves extends BaseSketch {
       this.particles[i] = new Particle(this);
     }
   }
-
+  // -------- input 1 ----------
   input1On() {
     this.amplitudeGrowing = true;
   }
+  input1Off() {
+    this.amplitudeGrowing = false;
+  }
+  // -------- input 2 ----------
   input2On() {
     this.frequencyGrowing = true;
     this.colorChanging = true;
-  }
-  input3On() {
-    this.speed = -2;
-  }
-  input1Off() {
-    this.amplitudeGrowing = false;
   }
   input2Off() {
     this.frequencyGrowing = false;
     this.colorChanging = false;
   }
+  // -------- input 3 ----------
+  input3On() {
+    this.speed = -2;
+  }
   input3Off() {
     this.speed = 2;
+  }
+  // -------- input 4 ----------
+  input4On() {
+    this.scale = 80;
+  }
+  input4Off() {
+    this.scale = 30;
   }
 
   draw() {
     if (this.amplitudeGrowing) {
-      this.amplitude += 1;
+      this.amplitude += 3;
     } else {
       this.resetAmplitude();
     }
@@ -53,14 +63,14 @@ class Waves extends BaseSketch {
     for (let i = 0; i < this.PARTICLE_COUNT; i++) {
       this.particles[i].move();
       this.particles[i].draw();
-      if(this.colorChanging){
-        this.particles[i].changeColor()
+      if (this.colorChanging) {
+        this.particles[i].changeColor();
       }
     }
   }
   resetAmplitude() {
-    if (this.amplitude > 0) {
-      this.amplitude -= 1;
+    if (this.amplitude > 20) {
+      this.amplitude -= 8;
     }
   }
 
@@ -80,9 +90,6 @@ class Particle {
     this.position = createVector(random(windowWidth), random(windowHeight));
     this.yOffset = random(windowHeight);
     this.xOffset = random(5);
-    this.scaleFactor = random(30);
-
-    this.scale = 3;
     this.r = random(255);
     this.g = random(100, 255);
     this.b = random(100, 255);
@@ -94,6 +101,9 @@ class Particle {
     if (this.position.x > windowWidth + 20) {
       this.position.x = 0;
     }
+    if (this.parent.speed < 0 && this.position.x < 0) {
+      this.position.x = windowWidth;
+    }
 
     this.position.y =
       Math.sin(this.position.x * this.parent.frequency) * this.parent.amplitude;
@@ -102,9 +112,17 @@ class Particle {
   draw() {
     fill(this.r, this.g, this.b, this.a);
     if (this.parent.shape === "circle") {
-      circle(this.position.x, this.position.y, random(30, 40));
+      circle(
+        this.position.x,
+        this.position.y,
+        random(this.parent.scale, this.parent.scale + 10)
+      );
     } else if (this.parent.shape === "square") {
-      square(this.position.x, this.position.y, random(30, 40));
+      square(
+        this.position.x,
+        this.position.y,
+        random(this.parent.scale, this.parent.scale + 10)
+      );
     }
   }
   changeColor() {
@@ -114,8 +132,5 @@ class Particle {
     if (this.r > 255) this.r -= 255;
     if (this.g > 255) this.g -= 255;
     if (this.b > 255) this.b -= 255;
-  }
-  changeScale() {
-    this.scale = Math.sin(this.position.x * (this.parent.amplitude / 100));
   }
 }
